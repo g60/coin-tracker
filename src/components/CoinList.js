@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import CoinListItem from './CoinListItem';
+import CoinListDataItem from './CoinListDataItem';
+import {Bootstrap, Grid, Row, Col, Table} from 'react-bootstrap';
+import CoinTransactions from './CoinTransactions';
+
 
 class CoinList extends Component {
 
@@ -8,7 +11,6 @@ class CoinList extends Component {
 
         this.state = {
             coinData: [],
-            test: 1,
         };
 
     }
@@ -87,13 +89,16 @@ class CoinList extends Component {
                   var val = obj[key];
                   console.log(val.name);
 
-                  coinData.push(<CoinListItem   symbol={val.symbol}
-                                                name={val.name} 
-                                                price_gbp={val.quotes.GBP.price}
-                                                percentChange_24hr={val.quotes.GBP.percent_change_24h}
-                                                percentChange_7d={val.quotes.GBP.percent_change_7d}
-                                                />
+                  coinData.push(<CoinListDataItem   key={val.symbol}
+                                                    symbol={val.symbol}
+                                                    name={val.name} 
+                                                    price_gbp={val.quotes.GBP.price}
+                                                    percentChange_24hr={val.quotes.GBP.percent_change_24h}
+                                                    percentChange_7d={val.quotes.GBP.percent_change_7d}
+                                                    />
                   );
+                  coinData.push(<CoinTransactions />);
+                  coinData.push(<hr key={'hr_' + val.symbol}/>);
                     
               }
           }
@@ -106,11 +111,17 @@ class CoinList extends Component {
 
     render() {
         return (
-
             <div>
-                {this.state.coinData}
-            </div>
+                <div>
+                    {this.state.coinData}
+                </div>
 
+                <div>
+
+                    
+                    
+                </div>
+            </div>
         );
     }
 
