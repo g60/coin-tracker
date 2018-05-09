@@ -33,7 +33,7 @@ class CoinListItem extends Component {
                     <Col md={2}>
                         <span className="coin-symbol">{this.props.symbol}</span> | {this.props.name}
                     </Col>
-                    <Col md={2}>£ {Math.round(this.props.price_gbp * 100) / 100} </Col>
+                    <Col md={2}>£{Math.round(this.props.price_gbp * 100) / 100} </Col>
                     <Col md={4}></Col>
                 </Row>
 
