@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CoinListDataItem from './CoinListDataItem';
-import {Bootstrap, Grid, Row, Col, Table} from 'react-bootstrap';
+//import {Bootstrap, Grid, Row, Col, Table} from 'react-bootstrap';
 import CoinTransactions from './CoinTransactions';
 
 
@@ -88,6 +88,8 @@ class CoinList extends Component {
               if (obj.hasOwnProperty(key)) {
                   var val = obj[key];
                   console.log(val.name);
+                  console.log(val.quotes.GBP.price);
+                  
 
                   coinData.push(<CoinListDataItem   key={val.symbol}
                                                     symbol={val.symbol}
@@ -97,8 +99,10 @@ class CoinList extends Component {
                                                     percentChange_7d={val.quotes.GBP.percent_change_7d}
                                                     />
                   );
-                  coinData.push(<CoinTransactions />);
-                  coinData.push(<hr key={'hr_' + val.symbol}/>);
+                  coinData.push(<CoinTransactions   key={"coinTrans_" + val.symbol} 
+                                                    symbol={val.symbol}
+                                                    currentPrice={val.quotes.GBP.price}/>);
+                  coinData.push(<hr key={"hr_" + val.symbol}/>);
                     
               }
           }

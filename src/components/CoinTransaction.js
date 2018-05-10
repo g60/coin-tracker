@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import './CoinTransaction.css';
-import {Bootstrap, Grid, Row, Col, Table} from 'react-bootstrap';
+//import {Bootstrap, Grid, Row, Col, Table} from 'react-bootstrap';
 
 class CoinTransaction extends Component {
 
@@ -10,11 +10,11 @@ class CoinTransaction extends Component {
         return (
 
             <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Otto</td>
+                <td>{this.props.date}</td>
+                <td>{this.props.amountBought}</td>
+                <td>£{this.props.priceBoughtAt}</td>
+                <td>£{this.props.amountBought * this.props.priceBoughtAt}</td>
+                <td>£{Math.round( ((this.props.amountBought * this.props.currentPrice) * 100) / 100)}</td>
                 <td>@mdo</td>
             </tr>
 

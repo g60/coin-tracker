@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './CoinListDataItem.css';
-import {Bootstrap, Grid, Row, Col} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 class CoinListDataItem extends Component {
 
