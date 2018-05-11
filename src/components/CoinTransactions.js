@@ -7,84 +7,88 @@ class CoinTransactions extends Component {
 
     constructor(props){
         super(props);
-
-        //console.log("currentPrice: " + this.props.currentPrice);
-
-        this.state = {
-            
-            allTransactions: [
-                {
-                    symbol: "BTC",
-                    date: "19/01/2018", 
-                    amountBought: 4,
-                    priceBoughtAt: 3,
-                },
-                {
-                    symbol: "BTC",
-                    date: "20/01/2018", 
-                    amountBought: 4,
-                    priceBoughtAt: 3,
-                },
-            ],
-        };
-
-
     }
 
     componentWillMount() {
-        console.log("currentPrice: " + this.props.currentPrice);
+        //console.log("currentPrice: " + this.props.currentPrice);
         this.setState({currentPrice: this.props.currentPrice});
     }
 
     render(props) {
 
-        var self = this;
+        let self = this;
 
-        return (
-            <div>
-                <h3>Transactions for {this.props.symbol}</h3>
-                <Grid>
-                    <Row className="">
-                        <Col md={3}></Col>
-                        <Col md={6}>
+        /*
+        let thisCoinTransactions = this.props.transactions.filter(function (ct) {
+            return (ct.symbol === self.props.symbol);
+        });
+        */
 
-                            <Table striped bordered condensed hover>
-                                <thead>
-                                    <tr>
-                                        <th>Date of Transaction</th>
-                                        <th>Amount Bought</th>
-                                        <th>Price Bought</th>
-                                        <th>Total</th>
-                                        <th>Current Value</th>
-                                        <th>Profit / Loss</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.allTransactions.map(function(item, i){
-                                        //console.log('test: '+self.state.currentPrice);
-                                        return <CoinTransaction key={i} 
-                                                                symbol={item.symbol}
-                                                                date={item.date}
-                                                                amountBought={item.amountBought}
-                                                                priceBoughtAt={item.priceBoughtAt}
-                                                                currentPrice={self.state.currentPrice}/>
-                                    })}
-                                </tbody>
-                            </Table>;
+        let thisCoinTransactions = this.props.transactions.slice();
 
-                        </Col>
-                        <Col md={3}></Col>
-                    </Row>
+        thisCoinTransactions.sort(function(a,b){
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return new Date(a.dateBought) - new Date(b.dateBought);
+        });
 
-                    <Row className="coin-data-row-2">
-                        <Col md={4}></Col>
-                        <Col md={4}>
-                        </Col>
-                        <Col md={4}></Col>
-                    </Row>
-                </Grid>
-            </div>
-        );
+        console.log("results: " + thisCoinTransactions.length);
+
+        if (thisCoinTransactions.length === 0) {
+
+            return (
+                <h4>No Transactions for {this.props.symbol}</h4>
+            );
+
+        } else {
+
+            return (
+                <div>
+                    <h4>Transactions for {this.props.symbol}</h4>
+                    <Grid>
+                        <Row className="">
+                            <Col md={3}></Col>
+                            <Col md={6}>
+
+                                <Table striped bordered condensed hover>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Date of Transaction</th>
+                                            <th>Amount Bought</th>
+                                            <th>Price Bought At</th>
+                                            <th>Total Cost</th>
+                                            <th>Current Value</th>
+                                            <th>Current Profit / Loss</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {thisCoinTransactions.map(function(item, i){
+                                            return <CoinTransaction key={i} 
+                                                                    symbol={item.symbol}
+                                                                    dateBought={item.dateBought}
+                                                                    amountBought={item.amountBought}
+                                                                    priceBoughtAt={item.priceBoughtAt}
+                                                                    currentPrice={self.state.currentPrice}
+                                                                    name={item.name}/>
+                                        })}
+                                    </tbody>
+                                </Table>;
+
+                            </Col>
+                            <Col md={3}></Col>
+                        </Row>
+
+                        <Row className="coin-data-row-2">
+                            <Col md={4}></Col>
+                            <Col md={4}>
+                            </Col>
+                            <Col md={4}></Col>
+                        </Row>
+                    </Grid>
+                </div>
+            );
+        }
     }
 
 
